@@ -40,7 +40,9 @@ public class MethodInjectionAndSuperCorrectionTransformer implements IClassTrans
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] bytes) {
 		if(bytes == null)
-			return bytes;//no code to look at...
+			return null;//no code to look at...
+		if(!LaunchLoaderCallCheck.fromLaunchLoader())
+			return bytes;
 		ClassReader cr = new ClassReader(bytes);
 		ClassNode tree = new ClassNode();
 		cr.accept(tree, ClassReader.EXPAND_FRAMES);

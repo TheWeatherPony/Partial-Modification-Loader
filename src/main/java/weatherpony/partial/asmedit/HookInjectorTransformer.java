@@ -85,7 +85,9 @@ public class HookInjectorTransformer implements IClassTransformer{
 	@Override
 	public byte[] transform(String className, String transformedName, byte[] bytes){
 		if(bytes == null)
-			return bytes;//no code to look at...
+			return null;//no code to look at...
+		if(!LaunchLoaderCallCheck.fromLaunchLoader())
+			return bytes;
 		String transformed_slash = transformedName.replace('.', '/');
 		ClassReader cr = new ClassReader(bytes);
 		ClassNode tree = new ClassNode();

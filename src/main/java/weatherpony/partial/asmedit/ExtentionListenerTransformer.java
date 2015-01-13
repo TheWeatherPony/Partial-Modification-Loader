@@ -16,7 +16,7 @@ public class ExtentionListenerTransformer implements IClassTransformer{
 
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] bytes) {
-		if(bytes != null){
+		if(bytes != null && LaunchLoaderCallCheck.fromLaunchLoader()){
 			ClassReader cr = new ClassReader(bytes);
 			String internalName = cr.getClassName();
 			
