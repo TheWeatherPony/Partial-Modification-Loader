@@ -53,9 +53,8 @@ public final class HookListenerHelperPool<RetType>{
 		}
 	}
 	private void make_inAdvance(){
-		HookListenerHelper ret = null;
+		HookListenerHelper ret = new HookListenerHelper(this.hooks, this.proxy, this.needsTrace, this);
 		synchronized(this.poolLock){
-			ret = new HookListenerHelper(this.hooks, this.proxy, this.needsTrace, this);
 			ready.add(ret);
 		}
 	}

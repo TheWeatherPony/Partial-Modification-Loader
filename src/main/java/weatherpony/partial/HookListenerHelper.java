@@ -19,7 +19,7 @@ public class HookListenerHelper<RetType>{
 	private final HookListenerHelperPool<RetType> pool;
 	private Stack<CallWrapper<RetType>> nexts;
 	private Object[] params = null;
-	private HashMap<String,Object> someExtraDetails;
+	private final HashMap<String,Object> someExtraDetails = new HashMap();
 	public Object getExtra(String key){
 		return someExtraDetails.get(key);
 	}
@@ -83,11 +83,10 @@ public class HookListenerHelper<RetType>{
 	private void done(){
 		this.trace = null;
 		this.params = null;
-		this.someExtraDetails = null;
+		this.someExtraDetails.clear();
 		this.pool.markDone(this);
 	}
 	protected void prepare(HashMap<String, Object> consistant, HashMap<String, Object> preregistered){
-		someExtraDetails = new HashMap();
 		someExtraDetails.putAll(consistant);
 		someExtraDetails.putAll(preregistered);
 	}

@@ -1,6 +1,7 @@
 package weatherpony.partial.internal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +27,18 @@ public final class ClassData {
 		}
 		final String extend;
 		final List<String> interfaces;
+		@Override
+		public boolean equals(Object obj){
+			if(this == obj)
+				return true;
+			if(obj instanceof ExtentionData){
+				ExtentionData cmp = (ExtentionData)obj;
+				if(this.extend.equals(cmp.extend))
+					return Arrays.equals(this.interfaces.toArray(), cmp.interfaces.toArray());
+				return false;
+			}
+			return false;
+		}
 	}
 	public static void ASM_giveExtendsAndImplements(String forClass, String Extends, List<String> interfaces){
 		INSTANCE._ASM_giveExtendsAndImplements_(forClass, Extends, interfaces);
@@ -37,7 +50,11 @@ public final class ClassData {
 				interfaces = new ArrayList(0);
 			classMap.put(forClass, (list = new ExtentionData(Extends,(interfaces == null ? new ArrayList(0) : interfaces))));
 		}else{
-			throw new RuntimeException();
+			if(interfaces == null)
+				interfaces = new ArrayList(0);
+			ExtentionData list2 = new ExtentionData(Extends,(interfaces == null ? new ArrayList(0) : interfaces));
+			if(!list.equals(list2))
+				throw new RuntimeException();
 		}
 	}
 	public static String deObjectify(String className){

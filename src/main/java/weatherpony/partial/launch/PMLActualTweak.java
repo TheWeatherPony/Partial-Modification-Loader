@@ -27,7 +27,7 @@ import weatherpony.util.structuring.MultiPathEnum_Plus;
 
 public class PMLActualTweak implements ITweaker{
 	public static final int PML_majorVersion = 4;
-	public static final int PML_minorVersion = 16;
+	public static final int PML_minorVersion = 17;
 	
 	
 	public static PMLActualTweak instance;
